@@ -20,7 +20,7 @@ fetchFromApi(productId).then((product) => {
  * Ajoute un produit au panier lors du clic sur le bouton
  */
 document.getElementById("addToCart").addEventListener("click", () => {
-    const quantity = document.getElementById("quantity").value;
+    const quantity = parseInt(document.getElementById("quantity").value);
     const color = document.getElementById("colors").value;
 
     if (quantity > 0 || quantity <= 100) {
@@ -28,20 +28,3 @@ document.getElementById("addToCart").addEventListener("click", () => {
         window.alert("Le produit a bien été ajouté au panier");
     } else window.alert("Veuillez sélectionner une quantité valide");
 });
-
-/**
- * Ajoute un produit au panier
- * @param productId
- * @param quantity
- * @param color
- */
-function addToCart(productId, quantity, color) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    const product = cart.find((product) => product.id === productId && product.color === color);
-
-    if (product) product.quantity += quantity;
-    else cart.push({ id: productId, quantity, color });
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-}
