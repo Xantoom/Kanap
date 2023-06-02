@@ -6,6 +6,7 @@ const API_URL = "http://localhost:3000/api/products/";
  * @returns {Promise<any>}
  */
 const fetchFromApi = (endpoint) => {
+    let fetchData;
     return fetch(`${API_URL}${endpoint}`)
         .then((response) => response.json())
         .then((data) => (fetchData = data))
@@ -21,9 +22,10 @@ const fetchFromApi = (endpoint) => {
  * @returns {Promise<any>}
 */
 const sendOrderToApi = (order) => {
+    console.log(order);
     return fetch(`${API_URL}order`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(order),
     })
         .then((response) => response.json())

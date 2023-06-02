@@ -1,6 +1,7 @@
 const cart = getCart();
 
 if (cart.length > 0) {
+    updateTotalPrice();
     const section = document.getElementById('cart__items');
     let idCounter = 1; // Compteur pour générer des identifiants uniques
 
@@ -51,6 +52,7 @@ if (cart.length > 0) {
                                     style: "currency",
                                     currency: 'EUR'
                                 });
+                                updateTotalPrice();
                             }).catch((error) => {
                                 console.log(error);
                                 window.alert('Une erreur est survenue, veuillez réessayer plus tard.');
@@ -69,6 +71,7 @@ if (cart.length > 0) {
                         return () => {
                             removeFromCart(id, color);
                             article.remove();
+                            updateTotalPrice();
                         };
                     })());
                 }
@@ -83,6 +86,33 @@ if (cart.length > 0) {
     });
 }
 
+/**
+ * Mise à jour du prix total
+ */
+function updateTotalPrice() {
+    const cart = getCart();
+    const totalQuantity = document.getElementById('totalQuantity');
+    const totalPrice = document.getElementById('totalPrice');
+    let total = 0;
+    let quantity = 0;
+    Object.values(cart).forEach((item) => {
+        quantity += item.quantity;
+        fetchFromApi(`${item.id}`).then((data) => {
+            total += quantity * data.price;
+            totalQuantity.innerHTML = quantity;
+            totalPrice.innerHTML = total.toLocaleString("fr-FR", {style: "currency", currency: 'EUR'});
+        }).catch((error) => {
+            console.log(error);
+            window.alert('Une erreur est survenue, veuillez réessayer plus tard.');
+        });
+    });
+    totalQuantity.innerHTML = quantity;
+    totalPrice.innerHTML = total.toLocaleString("fr-FR", {style: "currency", currency: 'EUR'});
+}
+
+/**
+ * Bouton pour commander
+ */
 const buyBtn = document.getElementById('order');
 if (buyBtn) {
     buyBtn.addEventListener('click', (() => {
@@ -109,11 +139,7 @@ if (buyBtn) {
                         products.push(item.id);
                     }
                 });
-                const order = {
-                    contact,
-                    products
-                };
-                console.log(order);
+                const order = {contact, products};
                 sendOrderToApi(order).then((data) => {
                     window.location.href = `confirmation.html?orderId=${data.orderId}`;
                 }).catch((error) => {

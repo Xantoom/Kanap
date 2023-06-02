@@ -3,7 +3,8 @@
  * @returns {any}
  */
 const getCart = () => {
-    return JSON.parse(localStorage.getItem('cart') || []);
+    if(localStorage.getItem('cart')!= null) return JSON.parse(localStorage.getItem('cart'));
+    else return [];
 };
 
 /**
