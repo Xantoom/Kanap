@@ -5,15 +5,8 @@ const API_URL = "http://localhost:3000/api/products/";
  * @param endpoint
  * @returns {Promise<any>}
  */
-const fetchFromApi = (endpoint) => {
-    let fetchData;
-    return fetch(`${API_URL}${endpoint}`)
-        .then((response) => response.json())
-        .then((data) => (fetchData = data))
-        .catch((error) => {
-            console.log(error);
-            window.alert("Erreur lors de la récupération des données");
-        });
+const fetchFromApi = async (endpoint) => {
+    return (await fetch(`${API_URL}${endpoint}`)).json();
 }
 
 /**
@@ -21,16 +14,10 @@ const fetchFromApi = (endpoint) => {
  * @param order
  * @returns {Promise<any>}
 */
-const sendOrderToApi = (order) => {
-    console.log(order);
-    return fetch(`${API_URL}order`, {
+const sendOrderToApi = async (order) => {
+    return (await fetch(`${API_URL}order`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(order),
-    })
-        .then((response) => response.json())
-        .catch((error) => {
-            console.log(error);
-            window.alert("Erreur lors de l'envoi des données");
-        });
+    })).json();
 }

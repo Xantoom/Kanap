@@ -51,8 +51,8 @@ const removeFromCart = (id, color) => {
 }
 
 /**
- * Supprime tous les produits du panier
+ * Vide le panier
  */
 const clearCart = () => {
-    setCart([]);
+    window.localStorage.removeItem('cart');
 }

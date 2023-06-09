@@ -3,6 +3,3 @@ let orderId = new URLSearchParams(window.location.search).get("orderId");
 
 // Affiche le numéro de commande
 document.getElementById("orderId").textContent = orderId;
-
-// Vide le localStorage
-window.localStorage.clear();

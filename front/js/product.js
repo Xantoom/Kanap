@@ -24,7 +24,6 @@ document.getElementById("addToCart").addEventListener("click", () => {
     const color = document.getElementById("colors").value;
 
     if (quantity > 0 || quantity <= 100) {
-        // console.log(`Ajout de ${productId} ${quantity} ${color} au panier`);
         addToCart(productId, quantity, color);
         window.alert("Le produit a bien été ajouté au panier");
     } else window.alert("Veuillez sélectionner une quantité valide");
