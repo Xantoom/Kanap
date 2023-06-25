@@ -5,10 +5,15 @@
 ## Prérequis ##
 - [NPM](https://www.npmjs.com/)
 
-## Utilisation ##
+## Première utilisation ##
 - Cloner le projet
 - Se placer dans le dossier du projet
-- `cd back/ && npm install && cd .. && node server`
+- `cd back/ && npm install && node server`
+- Ouvrir le fichier index.html
+
+## Utilisation ##
+- Se placer dans le dossier du projet
+- `cd back/ && node server`
 - Ouvrir le fichier index.html
 
 ## Auteur ##
