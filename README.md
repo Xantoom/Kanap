@@ -7,9 +7,9 @@
 
 ## Utilisation ##
 - Cloner le projet
-- Se placer dans le dossier "back"
-- Installer les dépendances avec la commande `npm install`
-- Lancer le serveur avec la commande `npm server`
+- Se placer dans le dossier du projet
+- `cd back/ && npm install && cd .. && npm server`
+- Ouvrir le fichier index.html
 
 ## Auteur ##
 * **Xavier Lauer** - [Xantoom](https://github.com/Xantoom)
