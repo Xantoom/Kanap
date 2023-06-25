@@ -8,7 +8,7 @@
 ## Utilisation ##
 - Cloner le projet
 - Se placer dans le dossier du projet
-- `cd back/ && npm install && cd .. && npm server`
+- `cd back/ && npm install && cd .. && node server`
 - Ouvrir le fichier index.html
 
 ## Auteur ##
