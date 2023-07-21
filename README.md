@@ -2,6 +2,8 @@
 
 > Kanap est un projet de formation de la formation Développeur Web d'OpenClassrooms. Il s'agit d'un site d'E-commerce de canapés.
 
+Étape du projet : Soutenance à repasser
+
 ## Prérequis ##
 - [NPM](https://www.npmjs.com/)
 
