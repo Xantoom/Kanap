@@ -26,7 +26,7 @@ const addToCart = (id, quantity, color) => {
 
     const item = cart.find((item) => item.id === id && item.color === color);
 
-    if (item) item.quantity = parseInt(quantity);
+    if (item) item.quantity = parseInt(quantity) + parseInt(item.quantity);
     else cart.push({ id, quantity, color });
 
     setCart(cart);

@@ -122,51 +122,6 @@ function deleteItemListener(article, item) {
 }
 
 /**
- * Bouton pour commander
- */
-const buyBtn = document.getElementById('order');
-if (buyBtn) {
-    buyBtn.addEventListener('click', async (event) => {
-        event.preventDefault();
-        const cart = await getCart();
-
-        if (cart.length <= 0) {
-            window.alert('Votre panier est vide.');
-        } else {
-            const contact = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                address: document.getElementById('address').value,
-                city: document.getElementById('city').value,
-                email: document.getElementById('email').value
-            };
-
-            if (Object.values(contact).some(value => value === '')) {
-                window.alert('Veuillez remplir tous les champs.');
-            } else if (/^\d/.test(contact.firstName)) {
-                window.alert('Veuillez entrer un prénom valide.');
-            } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,6}$/.test(contact.email)) {
-                window.alert('Veuillez entrer une adresse email valide.');
-            } else {
-                const products = [];
-                for (const item of cart) {
-                    for (let i = 0; i < item.quantity; i++) {
-                        products.push(item.id);
-                    }
-                }
-
-                const order = { contact, products };
-                const data = await sendOrderToApi(order);
-
-                clearCart();
-
-                window.location.href = `confirmation.html?orderId=${data.orderId}`;
-            }
-        }
-    });
-}
-
-/**
  * Affichage du formulaire de commande
  */
 function handleContactForm() {
@@ -205,9 +160,56 @@ function handleContactForm() {
     `;
     else div.innerHTML = `<span>Votre panier est vide.</span>`;
 }
+handleContactForm();
+
+/**
+ * Bouton pour commander
+ */
+const buyBtn = document.getElementById('order');
+console.log(buyBtn);
+if (buyBtn) {
+    buyBtn.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const cart = await getCart();
+
+        if (cart.length <= 0) {
+            window.alert('Votre panier est vide.');
+        } else {
+            const contact = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                email: document.getElementById('email').value
+            };
+
+            if (Object.values(contact).some(value => value === '')) {
+                window.alert('Veuillez remplir tous les champs.');
+            } else if (/^\d/.test(contact.firstName)) {
+                window.alert('Veuillez entrer un prénom valide.');
+            } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,6}$/.test(contact.email)) {
+                window.alert('Veuillez entrer une adresse email valide.');
+            } else {
+                const products = [];
+                for (const item of cart) {
+                    for (let i = 0; i < item.quantity; i++) {
+                        products.push(item.id);
+                    }
+                }
+
+                const order = { contact, products };
+                const data = await sendOrderToApi(order);
+
+                clearCart();
+                console.log('test');
+
+                window.location.href = `confirmation.html?orderId=${data.orderId}`;
+            }
+        }
+    });
+}
 
 // Appel initial pour traiter les éléments du panier
 window.addEventListener('DOMContentLoaded', async () => {
     await processCartItems();
-    handleContactForm();
 });
