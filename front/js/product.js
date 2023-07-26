@@ -19,7 +19,7 @@ fetchFromApi(productId).then((product) => {
 /**
  * Ajoute un produit au panier lors du clic sur le bouton
  */
-document.getElementById("addToCart").addEventListener("click", () => {
+document.getElementById("addToCartBtn").addEventListener("click", () => {
     const quantity = parseInt(document.getElementById("quantity").value);
     const color = document.getElementById("colors").value;
 

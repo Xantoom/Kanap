@@ -84,11 +84,11 @@ function updateQuantityInputListener(article, item) {
         const color = item.color;
         const quantity = quantityInput.value;
 
-        await addToCart(id, quantity, color);
+       updateCart(id, quantity, color);
 
         // Mise à jour du prix total
         const data = await fetchFromApi(`${id}`);
-        const totalPrice = quantity * data.price;
+        let totalPrice = quantity * data.price;
 
         document.getElementById(`totalPrice-${uniqueId}`).innerHTML = totalPrice.toLocaleString("fr-FR", {
             style: "currency",
@@ -166,7 +166,6 @@ handleContactForm();
  * Bouton pour commander
  */
 const buyBtn = document.getElementById('order');
-console.log(buyBtn);
 if (buyBtn) {
     buyBtn.addEventListener('click', async (event) => {
         event.preventDefault();
@@ -201,7 +200,6 @@ if (buyBtn) {
                 const data = await sendOrderToApi(order);
 
                 clearCart();
-                console.log('test');
 
                 window.location.href = `confirmation.html?orderId=${data.orderId}`;
             }
@@ -212,4 +210,5 @@ if (buyBtn) {
 // Appel initial pour traiter les éléments du panier
 window.addEventListener('DOMContentLoaded', async () => {
     await processCartItems();
+    await updateTotalPrice();
 });

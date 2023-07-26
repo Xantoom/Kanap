@@ -21,16 +21,35 @@ const setCart = (cart) => {
  * @param quantity
  * @param color
  */
-const addToCart = (id, quantity, color) => {
+function addToCart (id, quantity, color) {
     const cart = getCart();
 
-    const item = cart.find((item) => item.id === id && item.color === color);
+    const itemIndex = cart.findIndex((item) => item.id === id && item.color === color);
 
-    if (item) item.quantity = parseInt(quantity) + parseInt(item.quantity);
-    else cart.push({ id, quantity, color });
+    if (itemIndex !== -1) {
+        // Si l'article existe déjà dans le panier, ajouter la quantité spécifiée à la quantité existante
+        cart[itemIndex].quantity += parseInt(quantity);
+    } else {
+        // Si l'article n'existe pas dans le panier, l'ajouter en tant que nouvel article
+        cart.push({ id, quantity: parseInt(quantity), color });
+    }
 
     setCart(cart);
 }
+
+function updateCart(id, quantity, color) {
+    const cart = getCart();
+
+    const itemIndex = cart.findIndex((item) => item.id === id && item.color === color);
+
+    if (itemIndex !== -1) {
+        // Si l'article existe déjà dans le panier, ajouter la quantité spécifiée à la quantité existante
+        cart[itemIndex].quantity = parseInt(quantity);
+        setCart(cart);
+    }
+}
+
+
 
 /**
  * Supprime un produit du panier
@@ -48,7 +67,7 @@ const removeFromCart = (id, color) => {
     }
 
     setCart(cart);
-}
+};
 
 /**
  * Vide le panier
